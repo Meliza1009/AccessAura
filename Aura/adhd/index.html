@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Ninja 🧘</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-box">
+    <div id="game">
+      <h1>🧠 Focus Ninja</h1>
+      <p>Tap the 🧘 focus symbol. Ignore the distractions!</p>
+      <div id="level">Level: 1</div>
+      <div id="score">Score: 0</div>
+      <div id="play-area"></div>
+      <button id="start-btn">Start Game</button>
+
+      <div id="quiz" class="hidden">
+        <h3>Solve this to move to next level 🧮</h3>
+        <p id="question"></p>
+        <input type="text" id="answer" placeholder="Your answer..." />
+        <button id="submit-answer">Submit</button>
+        <p id="feedback"></p>
+      </div>
+
+      <div id="end-screen" class="hidden">
+        <h2>🎉 You completed all levels! You are a true Focus Ninja! 🥷</h2>
+        <button onclick="location.reload()">Play Again</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

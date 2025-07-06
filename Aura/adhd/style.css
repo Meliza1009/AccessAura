@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", sans-serif;
+  background: radial-gradient(#dceefc, #b3d8f4);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+#game-box {
+  max-width: 950px;
+  margin: 40px auto;
+  background: linear-gradient(to top right, #ffffff, #e3f2fd);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#game h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+#game p {
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+#level, #score {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 10px 0;
+}
+
+#play-area {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  background: url('https://cdn.pixabay.com/photo/2016/03/27/21/56/landscape-1283872_960_720.png') center/cover no-repeat;
+  border: 3px solid #34495e;
+  border-radius: 16px;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.symbol {
+  position: absolute;
+  font-size: 2.5rem;
+  cursor: pointer;
+  user-select: none;
+  animation: floatDown 5s linear forwards;
+}
+
+@keyframes floatDown {
+  from { top: -50px; }
+  to { top: 100%; }
+}
+
+#start-btn {
+  padding: 10px 24px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  color: #2c3e50;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+}
+
+#start-btn:hover {
+  background: linear-gradient(to right, #acb6e5, #74ebd5);
+  transform: scale(1.05);
+}
+
+#quiz {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#quiz input {
+  width: 80%;
+  padding: 8px;
+  font-size: 1rem;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#submit-answer {
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#end-screen {
+  margin-top: 30px;
+}
+
+#end-screen button {
+  margin-top: 10px;
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#end-screen button:hover {
+  background-color: #27ae60;
+  transform: scale(1.05);
+}

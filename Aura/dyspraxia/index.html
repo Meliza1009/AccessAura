@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spot the Baby Owls</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ✅ Start Screen -->
+  <div id="start-screen">
+    <div id="start-owl">🦉</div>
+    <p id="start-text">
+      Hi! I’m Ollie the Owl!<br>Click <strong>Play</strong> to start spotting me!
+    </p>
+    <p id="why-title">Why This Game?</p>
+    <p id="why-desc">
+      This game helps people with dyspraxia practice focus, hand–eye coordination, and patience by spotting friendly baby owls.
+    </p>
+    <button id="start-btn">Play</button>
+  </div>
+
+  <!-- ✅ Game Area -->
+  <h1>🦉 Spot the Baby Owls!</h1>
+  <p id="instruction">Tap the owls!</p>
+  <div id="progress">Level: 1 | Stage: 1 | Owls Left: 1 | Points: 0</div>
+
+  <div id="game-area"></div>
+  <p id="feedback"></p>
+
+  <div id="win-overlay">
+    <div id="win-owl">🦉</div>
+    <p id="win-message"></p>
+    <div id="level-complete"></div>
+    <button id="next-stage">Continue</button>
+  </div>
+
+  <!-- Audio -->
+  <audio id="hoot-sound" src="hoot.mp3"></audio>
+  <audio id="fireworks-sound" src="fireworks.mp3"></audio>
+  <audio id="error-sound" src="error.mp3"></audio>
+  <audio id="bgm" src="calm-bgm.mp3" loop></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #a2e4f5;
+  overflow: hidden;
+}
+
+/* Plain blue background for all main screens */
+.ocean-bg, #menuOceanBg, #storyMode.ocean-bg {
+  background: #0077be !important;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Remove bubbles and overlays */
+.bubble,
+#menuOceanBg .bubble,
+#menuOceanBg::before,
+#menuOceanBg::after,
+#storyMode.ocean-bg::before,
+#storyMode.ocean-bg::after {
+  display: none !important;
+  background: none !important;
+  animation: none !important;
+  content: none !important;
+}
+
+.game-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.story-image {
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+.story-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.choices button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #00bcd4;
+  color: white;
+  transition: background 0.3s;
+}
+
+.choices button:hover {
+  background-color: #0097a7;
+}
+
+.feedback {
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+#nextBtn {
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+.buddy-fish {
+  width: 120px;
+  display: block;
+  margin: 0 auto 10px auto;
+  transition: filter 0.4s, transform 0.4s;
+}
+
+.buddy-fish.sparkle {
+  box-shadow: 0 0 20px 5px #fff7b2, 0 0 40px 10px #ffe066;
+  animation: sparkle 1s infinite alternate;
+}
+
+@keyframes sparkle {
+  0% { filter: brightness(1.2); }
+  100% { filter: brightness(2); }
+}
+
+.buddy-fish.sing {
+  animation: sing 0.5s infinite alternate;
+}
+
+@keyframes sing {
+  0% { transform: scale(1) rotate(-2deg); }
+  100% { transform: scale(1.08) rotate(2deg); }
+}
+
+/* Center all main containers and controls */
+#modeSelect, .game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#creaturePalette, #colorZoneControls {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#sandboxOcean, #colorZoneOcean {
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Center the menu perfectly in the viewport */
+#menuOceanBg {
+  min-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#modeSelect {
+  z-index: 10;
+  background: rgba(255,255,255,0.97);
+  border-radius: 20px;
+  box-shadow: 0 0 32px 8px rgba(0,0,0,0.12);
+  padding: 40px 30px;
+  /* Centered by parent flexbox */
+}
+
+/* Color zone selector buttons */
+.color-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #eee;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+.color-btn.selected {
+  background: #00bcd4;
+  color: #fff;
+}
+
+/* Sea creature palette */
+.creature-icon {
+  width: 48px;
+  height: 48px;
+  cursor: grab;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s;
+  margin: 0 5px;
+}
+.creature-icon:active {
+  box-shadow: 0 0 0 2px #00bcd4;
+}
+
+/* Animated floating bubbles for menu */
+#menuOceanBg .bubble {
+  position: absolute;
+  bottom: -100px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: menuBubbleUp 12s infinite linear;
+  z-index: 1;
+}
+#menuOceanBg .bubble.delay1 { left: 30%; animation-delay: 2s; }
+#menuOceanBg .bubble.delay2 { left: 60%; animation-delay: 4s; }
+#menuOceanBg .bubble.delay3 { left: 80%; animation-delay: 6s; }
+#menuOceanBg .bubble.delay4 { left: 10%; animation-delay: 8s; }
+
+@keyframes menuBubbleUp {
+  0% { bottom: -50px; opacity: 0.7; transform: scale(0.7); }
+  50% { opacity: 1; }
+  100% { bottom: 100vh; opacity: 0; transform: scale(1.2); }
+}
+
+/* Gentle animated wave effect for menu background */
+#menuOceanBg::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 120px;
+  background: url('https://svgshare.com/i/13rG.svg') repeat-x;
+  background-size: contain;
+  opacity: 0.25;
+  animation: waveMove 8s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes waveMove {
+  0% { background-position-x: 0; }
+  100% { background-position-x: 400px; }
+}
+
+/* Shimmer animation for Ocean Buddies title */
+#modeSelect h1 {
+  background: linear-gradient(90deg, #00c2ff 20%, #fff 50%, #00c2ff 80%);
+  background-size: 200% auto;
+  color: #0077be;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2.5s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Floating caustics effect */
+#menuOceanBg::after, #storyMode.ocean-bg::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: url('https://i.imgur.com/6Q2Qw1v.png'); /* semi-transparent caustics pattern */
+  opacity: 0.12;
+  pointer-events: none;
+  animation: causticsMove 12s linear infinite;
+  z-index: 2;
+}
+@keyframes causticsMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 100px; }
+}
+
+/* Subtle moving shadow overlay */
+#menuOceanBg::before, #storyMode.ocean-bg::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: linear-gradient(120deg, rgba(0,0,30,0.08) 0%, rgba(0,0,0,0.18) 100%);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Remove display: flex and !important from .ocean-bg, only use .centered-flex for centering */
+.ocean-bg {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* Center .game-container and #modeSelect inside .ocean-bg */
+.ocean-bg > .game-container,
+#modeSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Remove any margin from h1 for perfect vertical centering */
+.ocean-bg h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.centered-flex {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+}

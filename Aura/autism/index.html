@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ocean Buddies: Social Story</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ocean-bg centered-flex" id="menuOceanBg">
+    <div class="bubble"></div>
+    <div class="bubble delay1"></div>
+    <div class="bubble delay2"></div>
+    <div class="bubble delay3"></div>
+    <div class="bubble delay4"></div>
+    <div id="modeSelect" class="game-container">
+      <h1 style="margin-bottom: 30px;">🌊 Ocean Buddies</h1>
+      <button onclick="selectMode('story')">🐠 Story Mode</button>
+      <button onclick="selectMode('sandbox')">🎨 Sandbox Mode</button>
+      <button onclick="selectMode('color')">🌈 Color Therapy Zones</button>
+    </div>
+  </div>
+  <div class="ocean-bg" id="storyMode" style="display:none;">
+    <div class="bubble"></div>
+    <div class="bubble delay1"></div>
+    <div class="bubble delay2"></div>
+    <div class="bubble delay3"></div>
+    <div class="bubble delay4"></div>
+    <div class="game-container">
+      <h1>🐠 Ocean Buddies: What Would You Do?</h1>
+      <div class="story-box" id="storyBox">
+        <img src="https://i.imgur.com/1YcFifP.png" alt="Buddy Fish" id="buddyFish" class="buddy-fish" />
+        <div id="statTracker"></div>
+        <span id="storyEmoji" style="font-size:3rem; display:block; margin-bottom:15px;"></span>
+        <p class="story-text" id="storyText">Loading...</p>
+        <div class="choices" id="choicesBox"></div>
+        <p class="feedback" id="feedbackText"></p>
+        <button id="nextBtn" onclick="nextScenario()">➡ Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="ocean-bg" id="sandboxMode" style="display:none;">
+    <div class="game-container">
+      <h1>🎨 Make Your Ocean</h1>
+      <div id="sandboxOcean" style="height:300px; width:400px; background:#b3e6ff; border-radius:20px; margin-bottom:20px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:10px;"></div>
+      <div id="creaturePalette" style="display:flex; gap:20px; justify-content:center; margin-bottom:20px;"></div>
+      <div id="musicPicker"></div>
+      <div id="taskDesigner"></div>
+      <button onclick="backToMenu()">⬅ Back to Menu</button>
+    </div>
+  </div>
+  <div class="ocean-bg" id="colorMode" style="display:none;">
+    <div class="game-container">
+      <h1>🌈 Color Therapy Zones</h1>
+      <div id="colorZoneControls" style="display:flex; gap:20px; justify-content:center; margin-bottom:20px;"></div>
+      <div id="colorZoneOcean" style="height:300px; width:400px; border-radius:20px; margin-bottom:20px; display:flex; align-items:center; justify-content:center;"></div>
+      <button onclick="backToMenu()">⬅ Back to Menu</button>
+    </div>
+  </div>
+  <audio id="mainAudio" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/11/audio_66543b8f3a.mp3" type="audio/mpeg">
+  </audio>
+  <script src="script.js"></script>
+</body>
+</html>

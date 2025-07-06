@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AccessAura – All Levels</title>
+  <link rel="stylesheet" href="wand.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet" />
+  <style>
+    #gameScreen { display: none; }
+    .hidden { display: none; }
+    .start-btn {
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      background-color: #43a047;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+    .start-btn:hover {
+      background-color: #2e7d32;
+    }
+    .home-container {
+      text-align: center;
+      padding-top: 100px;
+    }
+    .footer-note {
+      margin-top: 5rem;
+      font-size: 0.9rem;
+      color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home Screen -->
+  <div class="home-container" id="homeScreen">
+    <h1>🧠 AccessAura</h1>
+    <p>A magical learning experience designed for dyslexic minds ✨</p>
+    <button class="start-btn" onclick="startGame()">🟢 Start Game</button>
+    <div class="footer-note">
+      <p>Created with ❤️ for inclusive learning</p>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div class="container" id="gameScreen">
+    <h1 id="levelTitle">Wand Words</h1>
+    <p id="instruction">Drag the syllables in order to spell the word!</p>
+
+    <div class="drop-zone" id="dropZone"></div>
+    <div class="choices" id="choices"></div>
+
+    <button onclick="checkCurrentWord()">✨ Cast Spell</button>
+    <p id="feedback"></p>
+
+    <button id="nextBtn" style="display: none;" onclick="nextWord()">➡️ Next Word</button>
+
+    <div id="levelComplete" class="hidden">
+      <p id="completionText">🎉 Level Complete!</p>
+      <button id="nextLevelBtn" onclick="advanceLevel()">🚀 Next Level</button>
+    </div>
+  </div>
+
+  <script src="wand.js"></script>
+  <script>
+    const levels = [
+      {
+        title: "🪄 Wand Words – Level 1",
+        words: [
+          { syllables: ['mag', 'ic'], emojis: ['🟡', '🟣'] },
+          { syllables: ['po', 'tion'], emojis: ['🔵', '🟢'] },
+          { syllables: ['spell', 'book'], emojis: ['🔴', '🟠'] }
+        ],
+        completeText: "🎉 Level 1 Complete!",
+        nextText: "🚀 Go to Level 2"
+      },
+      {
+        title: "🧙‍♂️ Wand Words – Level 2",
+        words: [
+          { syllables: ['ad', 'ven', 'ture'], emojis: ['🟡', '🔵', '🟣'] },
+          { syllables: ['com', 'pu', 'ter'], emojis: ['🔴', '🟢', '🟡'] },
+          { syllables: ['gen', 'tle', 'man'], emojis: ['🔵', '🟢', '🟣'] }
+        ],
+        completeText: "🎉 Level 2 Complete!",
+        nextText: "🚀 Go to Level 3"
+      },
+      {
+        title: "🧙 Wand Words – Level 3",
+        words: [
+          { syllables: ['in', 'vis', 'i', 'ble'], emojis: ['🟡', '🔴', '🟢', '🟣'] },
+          { syllables: ['re', 'vo', 'lu', 'tion'], emojis: ['🔵', '🟠', '🟢', '🟣'] },
+          { syllables: ['u', 'ni', 'ver', 'sal'], emojis: ['🟣', '🔴', '🟡', '🔵'] }
+        ],
+        completeText: "🎉 You’ve completed all 3 levels!",
+        nextText: "🔁 Play Again"
+      }
+    ];
+
+    let currentLevel = 0;
+    let currentWord = 0;
+
+    function startGame() {
+      document.getElementById("homeScreen").style.display = "none";
+      document.getElementById("gameScreen").style.display = "block";
+      currentLevel = 0;
+      currentWord = 0;
+      initWord();
+    }
+
+    function initWord() {
+      const level = levels[currentLevel];
+      const wordObj = level.words[currentWord];
+
+      document.getElementById("levelTitle").innerText = level.title;
+      document.getElementById("dropZone").innerHTML = "";
+      document.getElementById("choices").innerHTML = "";
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("nextBtn").style.display = "none";
+      document.getElementById("levelComplete").classList.add("hidden");
+      document.getElementById("dropZone").style.display = "flex";
+      document.getElementById("choices").style.display = "flex";
+      document.getElementById("instruction").style.display = "block";
+      document.getElementById("feedback").style.display = "block";
+
+      wordObj.syllables.forEach((_, i) => {
+        const drop = document.createElement("div");
+        drop.className = "drop";
+        drop.id = "drop" + i;
+        drop.ondrop = dropHandler;
+        drop.ondragover = allowDrop;
+        document.getElementById("dropZone").appendChild(drop);
+      });
+
+      const shuffled = [...wordObj.syllables.map((s, i) => ({ s, e: wordObj.emojis[i] }))].sort(() => Math.random() - 0.5);
+      shuffled.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "syllable";
+        div.id = "syll" + i;
+        div.draggable = true;
+        div.ondragstart = drag;
+        div.innerText = `${item.e} ${item.s}`;
+        div.dataset.value = item.s;
+        document.getElementById("choices").appendChild(div);
+      });
+
+      document.getElementById("completionText").innerText = level.completeText;
+      document.getElementById("nextLevelBtn").innerText = level.nextText;
+    }
+
+    function allowDrop(ev) { ev.preventDefault(); }
+    function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
+
+    function dropHandler(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const dragged = document.getElementById(data);
+      if (ev.target.classList.contains("drop") && ev.target.children.length === 0) {
+        ev.target.appendChild(dragged);
+      }
+    }
+
+    function checkCurrentWord() {
+      const level = levels[currentLevel];
+      const wordObj = level.words[currentWord];
+      const drops = document.querySelectorAll(".drop");
+      const userOrder = Array.from(drops).map(d => d.firstChild?.dataset.value || "");
+      const correctOrder = wordObj.syllables;
+      const feedback = document.getElementById("feedback");
+
+      if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+        feedback.innerText = "✅ Correct!";
+        feedback.style.color = "green";
+        speakWord(correctOrder.join(""));
+        document.getElementById("nextBtn").style.display = "inline-block";
+      } else {
+        feedback.innerText = "❌ Try again!";
+        feedback.style.color = "red";
+      }
+    }
+
+    function speakWord(word) {
+      const utter = new SpeechSynthesisUtterance(word);
+      utter.lang = "en-US";
+      speechSynthesis.speak(utter);
+    }
+
+    function nextWord() {
+      currentWord++;
+      if (currentWord < levels[currentLevel].words.length) {
+        initWord();
+      } else {
+        showLevelComplete();
+      }
+    }
+
+    function showLevelComplete() {
+      document.getElementById("dropZone").style.display = "none";
+      document.getElementById("choices").style.display = "none";
+      document.getElementById("instruction").style.display = "none";
+      document.getElementById("feedback").style.display = "none";
+      document.getElementById("nextBtn").style.display = "none";
+      document.getElementById("levelComplete").classList.remove("hidden");
+    }
+
+    function advanceLevel() {
+      currentLevel++;
+      currentWord = 0;
+      if (currentLevel >= levels.length) {
+        location.reload(); // back to welcome screen
+      } else {
+        initWord();
+      }
+    }
+  </script>
+</body>
+</html>
